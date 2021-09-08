@@ -36,6 +36,7 @@ public class EventServiceImpl implements EventService{
     public Event save(Event event) {
         Organizer organizer = organizerDao.findById(event.getOrganizer().getId()).orElse(null);
         event.setOrganizer(organizer);
+        organizer.getOwnEvents().add(event);
         return eventDao.save(event);
     }
 }
