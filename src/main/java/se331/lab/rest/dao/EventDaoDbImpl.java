@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 import se331.lab.rest.entity.Event;
 import se331.lab.rest.repository.EventRepository;
 
-import java.util.List;
-
 @Repository
 @Profile("db")
 public class EventDaoDbImpl implements EventDao {
@@ -39,6 +37,6 @@ public class EventDaoDbImpl implements EventDao {
 
     @Override
     public Page<Event> getEvent(String title, Pageable page) {
-        return eventRepository.findByTitleContaining(title,page);
+        return eventRepository.findByTitleContainingOrDescriptionContaining(title,title,page);
     }
 }
