@@ -1,35 +1,49 @@
 package se331.lab.rest.security.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
 
-
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+/**
+ * Created by stephan on 20.03.16.
+ */
 public class JwtUser implements UserDetails {
 
-    Long id;
-    String username;
-    String firstname;
-    String lastname;
-    String password;
-    String email;
-    Collection<? extends GrantedAuthority> authorities;
-    boolean enabled;
-    Date lastPasswordResetDate;
+    private final Long id;
+    private final String username;
+    private final String firstname;
+    private final String lastname;
+    private final String password;
+    private final String email;
+    private final Collection<? extends GrantedAuthority> authorities;
+    private final boolean enabled;
+    private final Date lastPasswordResetDate;
 
+    public JwtUser(
+            Long id,
+            String username,
+            String firstname,
+            String lastname,
+            String email,
+            String password, Collection<? extends GrantedAuthority> authorities,
+            boolean enabled,
+            Date lastPasswordResetDate
+    ) {
+        this.id = id;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+        this.enabled = enabled;
+        this.lastPasswordResetDate = lastPasswordResetDate;
+    }
 
-
+    @JsonIgnore
     public Long getId() {
         return id;
     }
