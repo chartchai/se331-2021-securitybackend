@@ -5,10 +5,10 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 import se331.lab.rest.entity.*;
-
+import java.util.stream.Collectors;
 import java.util.List;
 
-@Mapper
+@Mapper(imports = Collectors.class)
 public interface LabMapper {
     LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
     EventDTO getEventDto(Event event);
@@ -17,7 +17,9 @@ public interface LabMapper {
     OrganizerDTO getOrganizerDTO(Organizer organizer);
     List<OrganizerDTO> getOrganizerDTO(List<Organizer> organizers);
 
-    @Mapping(target = "authorities", source = "user.authorities")
+    @Mapping(target = "authorities",
+            expression = "java(organizer.getUser().getAuthorities().stream().map(auth -> auth.getName().name()).collect(Collectors.toList()))")
     OrganizerAuthDTO getOrganizerAuthDTO(Organizer organizer);
+
 
 }
