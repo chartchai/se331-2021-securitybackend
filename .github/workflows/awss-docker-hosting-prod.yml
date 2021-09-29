@@ -11,6 +11,16 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
+        name: setup java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '16'
+          distribution: 'adopt'
+      -
+        name: run maven
+        run: mvn  clean install  -DskipTests -B
+
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       -
